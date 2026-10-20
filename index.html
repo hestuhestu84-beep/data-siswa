@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Biodata Siswa</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      font-family: Arial, sans-serif;
+      background: #eaf2ff;
+      color: #1f2937;
+    }
+    .card {
+      max-width: 460px;
+      margin: 24px auto;
+      padding: 24px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.10);
+    }
+    h1 { text-align: center; color: #2563eb; font-size: 26px; }
+    label { display: block; margin-top: 12px; font-weight: bold; }
+    input {
+      width: 100%;
+      margin-top: 6px;
+      padding: 11px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 12px;
+      border: 0;
+      border-radius: 8px;
+      background: #2563eb;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #hasil {
+      margin-top: 20px;
+      padding: 14px;
+      background: #f1f5f9;
+      border-radius: 10px;
+      overflow-wrap: anywhere;
+    }
+    #hasil:empty { display: none; }
+    .baris { margin: 8px 0; }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <h1>Biodata Siswa</h1>
+    <form id="formBiodata">
+      <label for="nama">Nama lengkap</label>
+      <input id="nama" name="nama" placeholder="Masukkan nama" required>
+
+      <label for="kelas">Kelas</label>
+      <input id="kelas" name="kelas" placeholder="Contoh: XI TKJ">
+
+      <label for="jurusan">Jurusan</label>
+      <input id="jurusan" name="jurusan" placeholder="Teknik Komputer dan Jaringan">
+
+      <label for="kota">Kota tempat tinggal</label>
+      <input id="kota" name="kota" placeholder="Masukkan kota">
+
+      <label for="hobi">Hobi</label>
+      <input id="hobi" name="hobi" placeholder="Masukkan hobi">
+
+      <button type="submit">Tampilkan Biodata</button>
+    </form>
+    <section id="hasil" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const form = document.getElementById("formBiodata");
+    const hasil = document.getElementById("hasil");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const biodata = [
+        ["Nama", document.getElementById("nama").value],
+        ["Kelas", document.getElementById("kelas").value],
+        ["Jurusan", document.getElementById("jurusan").value],
+        ["Kota", document.getElementById("kota").value],
+        ["Hobi", document.getElementById("hobi").value]
+      ];
+
+      hasil.replaceChildren();
+      const heading = document.createElement("h2");
+      heading.textContent = "Biodata kamu";
+      hasil.appendChild(heading);
+
+      biodata.forEach(([label, value]) => {
+        const p = document.createElement("p");
+        p.className = "baris";
+        p.textContent = label + ": " + (value.trim() || "-");
+        hasil.appendChild(p);
+      });
+    });
+  </script>
+</body>
+</html>
